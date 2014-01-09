@@ -10,10 +10,11 @@ Option Explicit
 '
 Sub Macro1()
 Attribute Macro1.VB_ProcData.VB_Invoke_Func = " \n14"
-    Dim s As Worksheet  'Copy of
-    Dim iRows As Long   'Number of used rows
-    Dim i As Long       'Loop Counter
-    Dim x As Long       'Formula variable
+    Dim Wkbk As Workbook    'Workbook containing finished report
+    Dim s As Worksheet      'Copy of
+    Dim iRows As Long       'Number of used rows
+    Dim i As Long           'Loop Counter
+    Dim x As Long           'Formula variable
 
     Application.ScreenUpdating = False
 
@@ -92,16 +93,14 @@ Attribute Macro1.VB_ProcData.VB_Invoke_Func = " \n14"
         .Apply
     End With
     ActiveSheet.Range(Cells(2, 1), Cells(iRows, 10)).RemoveDuplicates Columns:=5, Header:=xlYes
-    iRows = ActiveSheet.UsedRange.Rows.Count
+    iRows = Rows(Rows.Count).End(xlUp).Row
 
     'Fix the year if needed
-    i = 1
-    Do While i <= ActiveSheet.UsedRange.Rows.Count
-        i = i + 1
-        If Format(Cells(i, 6).Text, "yyyy") <> Format(Cells(i, 7).Text, "yyyy") Then
-            Cells(i, 6).Value = Format(Cells(i, 6).Text, "m/d") & "/" & Format(Cells(i, 7).Text, "yyyy")
+    For i = 2 To iRows
+        If CDate(Format(Cells(i, 6).Text, "yyyy-mm-dd")) > CDate(Format(Date, "yyyy-mm-dd")) Then
+            Cells(i, 6).Value = Format(Cells(i, 6).Text, "m/d") & "/" & Year(Date) - 1
         End If
-    Loop
+    Next
     iRows = ActiveSheet.UsedRange.Rows.Count
 
     Range("K2").Formula = "=F2-G2"
@@ -124,14 +123,13 @@ Attribute Macro1.VB_ProcData.VB_Invoke_Func = " \n14"
 
     'Highlight and count cells greater than 20
     Range("K1").Value = "Days"
-    i = 1
-    Do While i < ActiveSheet.UsedRange.Rows.Count
-        i = i + 1
+    iRows = Rows(Rows.Count).End(xlUp).Row
+    For i = 2 To iRows
         If Cells(i, 11).Value >= 21 Then
             x = x + 1
             Cells(i, 11).Interior.Color = RGB(255, 255, 0)
         End If
-    Loop
+    Next
     iRows = ActiveSheet.UsedRange.Rows.Count
 
     'Add data summary
@@ -147,17 +145,21 @@ Attribute Macro1.VB_ProcData.VB_Invoke_Func = " \n14"
 
     'Save results in a new workbook
     Sheets("DropIn").Copy
+    Set Wkbk = ActiveWorkbook
     Set s = ActiveSheet
     s.Name = "Sheet1"
     Application.Dialogs(xlDialogSaveAs).Show
     Cells(iRows, 1).Select
 
     'Clean this workbook
-    ThisWorkbook.Sheets("DropIn").Cells.Delete
+    ThisWorkbook.Activate
+    Application.DisplayAlerts = False
+    Sheets("DropIn").Cells.Delete
+    Application.DisplayAlerts = True
+    Range("A1").Select
+    Sheets("Macro").Select
+    Range("C7").Select
+    Wkbk.Activate
 
     Application.ScreenUpdating = True
 End Sub
-
-
-
-
