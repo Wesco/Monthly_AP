@@ -18,3 +18,7 @@ Private Sub Workbook_BeforeSave(ByVal SaveAsUI As Boolean, Cancel As Boolean)
         Cancel = True
     End If
 End Sub
+
+Private Sub Workbook_Open()
+    CheckForUpdates RepositoryName, VersionNumber
+End Sub
