@@ -55,7 +55,7 @@ Private Sub IncrementVer(Version As Ver)
     Dim FileNum As Integer
     Dim i As Integer
 
-    Path = GetWorkbookPath & "Version.txt"
+    Path = Left(ThisWorkbook.fullName, InStr(1, ThisWorkbook.fullName, ThisWorkbook.Name, vbTextCompare) - 1) & "Version.txt"
     FileNum = FreeFile
 
     If FileExists(Path) = True Then
