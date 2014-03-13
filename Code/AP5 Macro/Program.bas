@@ -33,7 +33,7 @@ Attribute Macro1.VB_ProcData.VB_Invoke_Func = " \n14"
             Array(2, 1), _
             Array(6, 1), _
             Array(13, 1), _
-            Array(21, 1), _
+            Array(22, 1), _
             Array(35, 1), _
             Array(45, 1), _
             Array(51, 1), _
@@ -123,7 +123,7 @@ Attribute Macro1.VB_ProcData.VB_Invoke_Func = " \n14"
         .Apply
     End With
     
-    'Add number formatting
+    'Add comma formatting to the AMT column
     Range("J2:J" & iRows).Style = "Comma"
 
     'Highlight and count cells greater than 20
