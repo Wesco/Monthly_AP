@@ -122,9 +122,15 @@ Attribute Macro1.VB_ProcData.VB_Invoke_Func = " \n14"
         .SortMethod = xlPinYin
         .Apply
     End With
-    
+
     'Add comma formatting to the AMT column
     Range("J2:J" & iRows).Style = "Comma"
+
+    'Left align Branch numbers
+    Range("A2:A" & iRows).HorizontalAlignment = xlLeft
+
+    'Left align Supplier numbers
+    Range("C2:C" & iRows).HorizontalAlignment = xlLeft
 
     'Highlight and count cells greater than 20
     Range("K1").Value = "Days"
