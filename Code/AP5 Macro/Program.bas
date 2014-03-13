@@ -127,7 +127,7 @@ Attribute Macro1.VB_ProcData.VB_Invoke_Func = " \n14"
     Range("K1").Value = "Days"
     iRows = Rows(Rows.Count).End(xlUp).Row
     For i = 2 To iRows
-        If Cells(i, 11).Value >= 21 Then
+        If Cells(i, 11).Value >= 15 Then
             x = x + 1
             Cells(i, 11).Interior.Color = RGB(255, 255, 0)
         End If
@@ -135,7 +135,7 @@ Attribute Macro1.VB_ProcData.VB_Invoke_Func = " \n14"
     iRows = ActiveSheet.UsedRange.Rows.Count
 
     'Add data summary
-    Cells(iRows + 1, 1).Value = "# over 20:"
+    Cells(iRows + 1, 1).Value = "# over 15:"
     Cells(iRows + 1, 1).Interior.Color = RGB(255, 255, 0)
     Cells(iRows + 1, 2).Value = x
     Cells(iRows + 1, 2).Interior.Color = RGB(255, 255, 0)
