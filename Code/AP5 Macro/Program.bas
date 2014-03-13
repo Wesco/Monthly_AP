@@ -122,6 +122,9 @@ Attribute Macro1.VB_ProcData.VB_Invoke_Func = " \n14"
         .SortMethod = xlPinYin
         .Apply
     End With
+    
+    'Add number formatting
+    Range("J2:J" & iRows).Style = "Comma"
 
     'Highlight and count cells greater than 20
     Range("K1").Value = "Days"
@@ -142,7 +145,7 @@ Attribute Macro1.VB_ProcData.VB_Invoke_Func = " \n14"
 
     Cells(iRows + 2, 1).Value = "% of total:"
     Cells(iRows + 2, 1).Interior.Color = RGB(255, 255, 0)
-    Cells(iRows + 2, 2).Value = Round(((x / iRows) * 100), 2)
+    Cells(iRows + 2, 2).Value = Round(((x / (iRows - 1)) * 100), 2)
     Cells(iRows + 2, 2).Interior.Color = RGB(255, 255, 0)
 
     'Save results in a new workbook
