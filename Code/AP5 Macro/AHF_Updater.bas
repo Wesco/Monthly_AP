@@ -7,6 +7,17 @@ Private Enum Ver
     Patch
 End Enum
 
+#If VBA7 Then
+Private Declare PtrSafe Function ShellExecute _
+        Lib "shell32.dll" Alias "ShellExecuteA" ( _
+        ByVal hWnd As Long, _
+        ByVal Operation As String, _
+        ByVal FileName As String, _
+        Optional ByVal Parameters As String, _
+        Optional ByVal Directory As String, _
+        Optional ByVal WindowStyle As Long = vbMaximizedFocus _
+      ) As Long
+#Else
 Private Declare Function ShellExecute _
                           Lib "shell32.dll" Alias "ShellExecuteA" ( _
                               ByVal hWnd As Long, _
@@ -16,6 +27,7 @@ Private Declare Function ShellExecute _
                               Optional ByVal Directory As String, _
                               Optional ByVal WindowStyle As Long = vbMaximizedFocus _
                             ) As Long
+#End If
 
 '---------------------------------------------------------------------------------------
 ' Proc : IncrementMajor
